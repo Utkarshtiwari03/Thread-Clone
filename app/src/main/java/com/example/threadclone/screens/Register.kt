@@ -25,6 +25,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -86,6 +87,21 @@ fun Register(modifier: Modifier = Modifier,navController: NavHostController) {
         else{
 
         }
+    }
+
+    LaunchedEffect(firebaseUser) {
+        if(firebaseUser!=null){
+            navController.navigate(Routes.BottomNav.routes){
+                popUpTo(navController.graph.startDestinationId)
+                launchSingleTop = true
+            }
+        }
+//        else{
+//            navController.navigate(Routes.Login.routes){
+//                popUpTo(navController.graph.startDestinationId)
+//                launchSingleTop = true
+//            }
+//        }
     }
 
     Column(modifier = modifier.fillMaxSize().padding(24.dp),
@@ -191,14 +207,16 @@ fun Register(modifier: Modifier = Modifier,navController: NavHostController) {
         Spacer(modifier= Modifier.height(30.dp))
 
         ElevatedButton(onClick = {
-            if (name.isNotEmpty() || username.isNotEmpty() || bio.isNotEmpty() || email.isNotEmpty() || password.isNotEmpty() || imageUri== null) {
+            if (name.isEmpty() || username.isEmpty() || bio.isEmpty() || email.isEmpty() || password.isEmpty()  || imageUri== null) {
                 Toast.makeText(context, "Please fill all details", Toast.LENGTH_SHORT).show()
             }else {
-                authViewModel.register(email, password, name, bio, username, imageUri)
-                navController.navigate(Routes.BottomNav.routes) {
-                    popUpTo(navController.graph.startDestinationId)
-                    launchSingleTop = true
-                }
+//                authViewModel.register(email, password, name, bio, username, imageUri!!,context)
+//                navController.navigate(Routes.BottomNav.routes) {
+//                    popUpTo(navController.graph.startDestinationId)
+//                    launchSingleTop = true
+                authViewModel.register(email, password, name, bio, username, imageUri!!,context)
+
+//                }
             }
         }, modifier = Modifier.fillMaxWidth()) {
             Text(text = "Register",

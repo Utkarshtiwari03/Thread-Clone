@@ -27,26 +27,28 @@ import com.example.threadclone.navigation.Routes
 @Composable
 fun ButtonNav(modifier: Modifier = Modifier,navController: NavHostController) {
 
-    val navController=rememberNavController()
+    val navController1=rememberNavController()
 
-    Scaffold(bottomBar={MyBottomBar(navController)}) {innerPadding->
+    Scaffold(bottomBar={MyBottomBar(navController1)}) {innerPadding->
         NavHost(
-            navController = navController, startDestination = Routes.Home.routes, modifier = Modifier.padding(innerPadding)
+            navController = navController1, startDestination = Routes.Home.routes, modifier = Modifier.padding(innerPadding)
         ){
             composable(route = Routes.Home.routes){
-                Home()
+                Home(navController)
             }
             composable(route=Routes.Search.routes) {
-                Search()
+                Search(navController)
             }
             composable(route=Routes.Notification.routes) {
                 Notification()
             }
             composable(route=Routes.AddThread.routes) {
-                AddThreads()
+                AddThreads(navController1)
             }
             composable(route=Routes.Profile.routes) {
-                Profile()
+                Profile(
+                    navHostController = navController
+                )
             }
         }
 

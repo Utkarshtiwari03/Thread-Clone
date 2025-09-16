@@ -13,6 +13,7 @@ import com.example.threadclone.screens.Search
 import com.example.threadclone.screens.Splash
 import com.example.threadclone.screens.ButtonNav
 import com.example.threadclone.screens.Login
+import com.example.threadclone.screens.OtherUser
 import com.example.threadclone.screens.Register
 
 @Composable
@@ -27,19 +28,21 @@ fun NavGraph(navController: NavHostController, modifier: Modifier) {
             )
         }
         composable(Routes.Home.routes) {
-            Home(modifier = modifier)
+            Home(navController)
         }
         composable(Routes.Notification.routes) {
-            Notification(modifier = modifier)
+            Notification()
         }
         composable(Routes.Search.routes) {
-            Search(modifier = modifier)
+            Search(navController)
         }
         composable(Routes.AddThread.routes) {
-            AddThreads(modifier = modifier)
+            AddThreads(navController)
         }
         composable(Routes.Profile.routes) {
-            Profile(modifier = modifier)
+            Profile(
+                navHostController = navController
+            )
         }
         composable(Routes.BottomNav.routes) {
             ButtonNav(
@@ -52,6 +55,10 @@ fun NavGraph(navController: NavHostController, modifier: Modifier) {
         }
         composable(Routes.Register.routes) {
             Register(modifier= modifier,navController = navController)
+        }
+        composable(Routes.OtherUsers.routes) {
+            val data=it.arguments!!.getString("data")
+            OtherUser(navController,data!!)
         }
     }
 }

@@ -6,5 +6,6 @@ data class UserModel(
     val name: String="",
     val cio: String="",
     val userName: String="",
+    val imageUrl:String="",
     val uid: String=""
 )
